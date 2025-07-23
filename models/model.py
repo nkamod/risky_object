@@ -166,9 +166,12 @@ class RiskyObject(nn.Module):
         all_outputs = []
         all_labels = []
 
+        inp = flow[:, 0]
+
         for t in range(x.size(1)):
-            # projecting to a lower dimensional space
-            inp = flow[:, t]  # 1 x31 x2048
+            if t % 4 == 0:
+                inp = flow[:, t]
+
 
             # Flow----------------
             x_val = self.phi_x(inp)  # 1 x 31 x 256  #rgb_d
